@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="com.gutaicheng.dao.UserMapper">
+<!--    添加用户-->
+    <insert id="addUser">
+#         curdate()
+        insert into user (username, password, tel, email, registeredtime, status)
+        VALUES (#{username}, #{password},#{tel}, #{email}, #{registeredTime}, #{status});
+    </insert>
+<!--    编辑用户信息-->
+    <update id="editUserInfo">
+        update user
+        <set>
+            <if test="username != null and username != '' ">
+                username = #{username},
+            </if>
+            <if test="tel != null and tel != '' ">
+                tel = #{tel},
+            </if>
+            <if test="email != null and email != '' ">
+                email = #{email},
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+<!--    启用或禁用用户-->
+    <update id="enableOrDisableUser">
+        update user
+        <set>
+            <if test="status != null ">
+                status = #{status}
+            </if>
+        </set>
+        where uid = #{uid}
+    </update>
+<!--    更新用户头像-->
+    <update id="updateUserHeadshotByUid">
+        update user set headshot = #{headshot} where uid = #{uid}
+    </update>
+    <update id="updateUserInfoByUser">
+        update user
+        set username = #{username}, headshot = #{headshot}, introduction = #{introduction}, tel = #{tel}, email = #{email}
+        where uid = #{uid}
+    </update>
+    <!--    根据id删除用户-->
+    <delete id="deleteUserByUid">
+        delete from user where uid = #{uid}
+    </delete>
+<!--    根据用户uid查询该用户下所有的文章-->
+    <select id="selectAllArticleByUid" resultType="com.gutaicheng.model.UserArticles">
+        select u.uid, a.aid, title, text, data, views
+        from user u, article a
+        where u.uid = a.uid and u.uid = #{uid}
+    </select>
+<!--    查询所有用户-->
+    <select id="selectAllUser" resultType="com.gutaicheng.model.User">
+        select * from user
+    </select>
+<!--    根据uid查询用户-->
+    <select id="selectUserByUid" resultType="com.gutaicheng.model.User">
+        select * from user where uid = #{uid}
+    </select>
+    <!--    分页查询所有用户-->
+    <select id="listAllByPage" resultType="com.gutaicheng.model.User">
+        select * from user order by uid DESC limit #{startIndex}, #{perPageSize}
+    </select>
+<!--    用户登录-->
+    <select id="selectLoginUser" resultType="com.gutaicheng.model.User">
+        select * from user where username = #{username} and password = #{password}
+    </select>
+    <select id="selectUserByUsername" resultType="com.gutaicheng.model.User">
+        select * from user where username = #{username}
+    </select>
+
+</mapper>

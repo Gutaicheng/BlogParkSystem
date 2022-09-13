@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="com.gutaicheng.dao.MessageMapper">
+
+    <insert id="addMessage">
+        insert into message(uid, aid, content) VALUES (#{uid}, #{aid}, #{content})
+    </insert>
+    <select id="selectMessageByAid" resultType="com.gutaicheng.model.Message">
+        select mid, message.uid, aid, messagetime, content, username, headshot
+        from message, user
+        where aid = #{aid} and message.uid = user.uid
+    </select>
+
+</mapper>

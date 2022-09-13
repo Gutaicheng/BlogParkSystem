@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--&lt;!&ndash;    environments：配置数据库连接信息。 可以配置多个environment，通过default属性切换不同的environment&ndash;&gt;-->
+<!--    <environments default="development">-->
+<!--        <environment id="development">-->
+<!--            <transactionManager type="JDBC"/>-->
+<!--            <dataSource type="POOLED">-->
+<!--                &lt;!&ndash;数据库连接信息&ndash;&gt;-->
+<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://127.0.0.1:3306/blog?useSSL=false"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="123456789Dd"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+
+<!--    定义别名-->
+    <typeAliases>
+        <typeAlias type="com.gutaicheng.model.Article" alias="article"/>
+        <typeAlias type="com.gutaicheng.model.Admin" alias="admin"/>
+        <typeAlias type="com.gutaicheng.model.User" alias="user"/>
+    </typeAliases>
+    <mappers>
+        <!--加载sql映射文件   单个-->
+<!--        <mapper resource="com/gutaicheng/dao/AdminMapper.xml"/>-->
+        <!--包扫描 一行就行 确保Mapper接口在下面这个包里-->
+        <package name="com.gutaicheng.dao"/>
+    </mappers>
+</configuration>

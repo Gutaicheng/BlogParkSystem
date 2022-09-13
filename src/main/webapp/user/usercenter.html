@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.lzqcode.com" />
+    <title>用户主页</title>
+    <link rel="stylesheet" href="/Blog/static/userSide/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Blog/static/userSide/layui/css/layui.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/master.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/gloable.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/nprogress.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/blog.css" />
+    <!-- 隔壁的css -->
+    <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="/Blog/static/userSide/image/favicon.ico" type="image/png">
+
+    <!--====== animate css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/animate.min.css">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/bootstrap.min.css">
+
+    <!--====== Fontawesome css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/all.css">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/magnific-popup.css">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/owl.carousel.min.css">
+
+    <!--====== nice select css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/nice-select.css">
+
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/slick.css">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/style.css">
+
+
+    <!--    找到的用户中心-->
+    <link type="text/css" rel="stylesheet" href="/Blog/static/userSide/css/core.css">
+    <link type="text/css" rel="stylesheet" href="/Blog/static/userSide/css/icon.css">
+    <link type="text/css" rel="stylesheet" href="/Blog/static/userSide/css/home.css">
+</head>
+<body>
+<div class="header">
+</div>
+<header class="gird-header">
+    <div class="header-fixed">
+        <div class="header-inner">
+            <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
+            <nav class="nav" id="nav">
+                <ul>
+                    <li><a href="/Blog">首页</a></li>
+                    <li><a href="/Blog/homepage">博客</a></li>
+                    <li><a href="/Blog/download">资源</a></li>
+                    <li><a href="diary.html">日记</a></li>
+                    <li><a href="link.html">友链</a></li>
+                    <li><a href="/Blog/write">撰写</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="blog-user">
+                <i class="fa fa-qq"></i>
+            </a>
+            <a class="phone-menu">
+                <i></i>
+                <i></i>
+                <i></i>
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- 复制隔壁的html -->
+<section class="blog-standard-area gray-bg pt-80 pb-120">
+    <div class="container" id="app">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="blog-standard-2">
+                    <div class="single-blog-standard  mt-40">
+                        <div class="ydc-flex">
+                            <!-- right begin -->
+                            <div class="ydc-column ydc-column">
+                                <div class="ydc-entered-box">
+                                    <div class="ydc-content-right">
+                                        <div class="ydc-right-head">
+                                            <div class="ydc-right-head-info">
+                                                <dl>
+                                                    <a href="#">
+                                                        <dt>文章数</dt>
+                                                        <dd>{{articles.length}}</dd>
+                                                    </a>
+                                                </dl>
+                                                <dl>
+                                                    <a href="#">
+                                                        <dt>上传资源数</dt>
+                                                        <dd>{{downloads.length}}</dd>
+                                                    </a>
+                                                </dl>
+                                                <dl>
+                                                    <a href="#">
+                                                        <dt>阅读量</dt>
+                                                        <dd>14</dd>
+                                                    </a>
+                                                </dl>
+                                                <dl>
+                                                    <a href="#">
+                                                        <dt>下载量</dt>
+                                                        <dd>158</dd>
+                                                    </a>
+                                                </dl>
+                                                <dl>
+                                                    <a href="#">
+                                                        <dt>总数据指数</dt>
+                                                        <dd>158</dd>
+                                                    </a>
+                                                </dl>
+                                            </div>
+                                        </div>
+
+                                        <!-- gongGao begin -->
+                                        <div class="ydc-loading-box">
+                                            <div class="ydc-tabPanel">
+                                                <div>
+                                                    <ul>
+                                                        <li class="hit">文章</li>
+                                                        <li>资源</li>
+                                                        <li>收藏</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="ydc-panes">
+                                                    <div class="ydc-pane" style="display:block;">
+                                                        <ol class="ydc-pane-list">
+                                                            <li v-for="(article) in articles">
+                                                                <a :href=" user.username +'/articles/' + article.aid" target="_blank">{{article.title}}<i v-if="article.state == 2">待审核</i></a>
+                                                                <span>{{article.data}}</span>
+                                                            </li>
+<!--                                                            <li>-->
+<!--                                                                <a href="page.html" target="_blank">4月特色MCN | 点讯号MCN颁发月度特色奖项：决定就是你了！</a>-->
+<!--                                                                <span>2017-04-17 10:00:00</span>-->
+<!--                                                            </li>-->
+                                                        </ol>
+                                                        <div class="ydc-pagination">
+                                                            <ol>
+                                                                <li class="ydc-previous-item">
+                                                                    <button class="ydc-previous-item-btn-medium ydc-disabled">
+                                                                        <span>上一页</span>
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium cur">1</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium">2</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium">3</button>
+                                                                </li>
+                                                                <li class="ydc-previous-item">
+                                                                    <button class="ydc-previous-item-btn-medium">
+                                                                        <span>下一页</span>
+                                                                    </button>
+                                                                </li>
+                                                                <li class="ydc-item-quick">
+                                                                    第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页
+                                                                    <button style="margin-left:5px;" class="ydc-previous-item-btn-medium">
+                                                                        <span>跳转</span>
+                                                                    </button>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ydc-pane">
+                                                        <ol class="ydc-pane-list">
+                                                            <li v-for="(download) in downloads">
+                                                                <a :href="'/Blog/downdown?lfile=' + download.dfile" target="_blank">{{download.dname}}<i>new</i></a>
+                                                                <span>{{download.loadtime}}</span>
+                                                            </li>
+                                                        </ol>
+                                                        <div class="ydc-pagination">
+                                                            <ol>
+                                                                <li class="ydc-previous-item">
+                                                                    <button class="ydc-previous-item-btn-medium ydc-disabled">
+                                                                        <span>上一页</span>
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium cur">1</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium">2</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium">3</button>
+                                                                </li>
+                                                                <li class="ydc-previous-item">
+                                                                    <button class="ydc-previous-item-btn-medium">
+                                                                        <span>下一页</span>
+                                                                    </button>
+                                                                </li>
+                                                                <li class="ydc-item-quick">
+                                                                    第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页
+                                                                    <button style="margin-left:5px;" class="ydc-previous-item-btn-medium">
+                                                                        <span>跳转</span>
+                                                                    </button>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ydc-pane">
+                                                        <ol class="ydc-pane-list">
+                                                            <li>
+                                                                <a target="_blank">暂无<i>暂无</i></a>
+                                                                <span>2022-06-05</span>
+                                                            </li>
+                                                        </ol>
+                                                        <div class="ydc-pagination">
+                                                            <ol>
+                                                                <li class="ydc-previous-item">
+                                                                    <button class="ydc-previous-item-btn-medium ydc-disabled">
+                                                                        <span>上一页</span>
+                                                                    </button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium cur">1</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium">2</button>
+                                                                </li>
+                                                                <li>
+                                                                    <button class="ydc-previous-item-btn-medium">3</button>
+                                                                </li>
+                                                                <li class="ydc-previous-item">
+                                                                    <button class="ydc-previous-item-btn-medium">
+                                                                        <span>下一页</span>
+                                                                    </button>
+                                                                </li>
+                                                                <li class="ydc-item-quick">
+                                                                    第<div class="ydc-item-quick-kun"><input type="number" aria-invalid="false" class=""></div>页
+                                                                    <button style="margin-left:5px;" class="ydc-previous-item-btn-medium">
+                                                                        <span>跳转</span>
+                                                                    </button>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- gongGao End -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- right end -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="blog-sidebar ml-10">
+                    <div class="blog-side-about white-bg mt-40">
+                        <div class="about-title">
+                            <h4 class="title">关于博主</h4>
+                        </div>
+                        <div class="blog-about-content text-center">
+                            <img :src="'/Blog/'+user.headshot" alt="girl">
+                            <h4 class="title">{{user.username}}</h4>
+                            <p>{{user.introduction}}</p>
+                            <ul>
+                                <li><a href="#">粉丝</a></li>
+                                <li><a href="#">获赞</a></li>
+                                <li><a href="#">评论</i></a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">10</a></li>
+                                <li><a href="#">100</i></a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="blog-side-about white-bg mt-40">
+                        <div class="about-title">
+                            <h4 class="title">他的专栏</h4>
+                        </div>
+                        <div class="blog-categories-content mt-35">
+                            <ul>
+                                <li><a href="#" v-for="(column) in columns">{{column.cname}} <span>{{column.amount}}</span></a></li>
+                                <!--                                    <li><a href="#">Consultant <span>30</span></a></li>-->
+                                <!--                                    <li><a href="#">Creative <span>71</span></a></li>-->
+                                <!--                                    <li><a href="#">UI/UX <span>56</span></a></li>-->
+                                <!--                                    <li><a href="#">Technology <span>60</span></a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="blog-side-about white-bg mt-40">
+                        <div class="about-title">
+                            <h4 class="title">分享</h4>
+                        </div>
+                        <div class="blog-social-content mt-35 text-center">
+                            <ul>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="blog-side-about white-bg mt-40">
+                        <div class="about-title">
+                            <h4 class="title">兴趣领域</h4>
+                        </div>
+                        <div class="blog-tags-content mt-25 text-center">
+                            <ul>
+                                <li><a href="#">Popular</a></li>
+                                <li><a href="#">design</a></li>
+                                <li><a href="#">ux</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">usability</a></li>
+                                <li><a href="#">develop</a></li>
+                                <li><a href="#">icon</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">business</a></li>
+                                <li><a href="#">consult</a></li>
+                                <li><a href="#">kit</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#">keyboard</a></li>
+                                <li><a href="#">mouse</a></li>
+                                <li><a href="#">tech</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--                        <div class="banner-add mt-40">-->
+                    <!--                            <img src="/Blog/static/userSide/image/sidebar-add.jpg" alt="">-->
+                    <!--                        </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="grid-footer">
+    <div class="footer-fixed">
+        <div class="copyright">
+            <div class="info">
+                <div class="contact">
+                    <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                    <a href="#" class="qq" target="_blank" ><i class="fa fa-qq"></i></a>
+                    <a href="#" class="email" target="_blank" ><i class="fa fa-envelope"></i></a>
+                    <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                </div>
+                <p class="mt05">
+                    Copyright &copy; 2019-2020 ZQ博客 All Rights Reserved V.3.1.3 Power by ZQ博客
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="/Blog/static/userSide/layui/layui.js"></script>
+<script src="/Blog/static/userSide/js/yss/gloable.js"></script>
+<script src="/Blog/static/userSide/js/plugins/nprogress.js"></script>
+<script src="/Blog/static/userSide/js/pagecomment.js"></script>
+
+<!-- 复制隔壁的js -->
+<!--====== jquery js ======-->
+<script src="/Blog/static/userSide/js/vendor/modernizr-3.6.0.min.js"></script>
+<script src="/Blog/static/userSide/js/vendor/jquery-1.12.4.min.js"></script>
+
+<!--====== Bootstrap js ======-->
+<script src="/Blog/static/userSide/js/bootstrap.min.js"></script>
+<script src="/Blog/static/userSide/js/popper.min.js"></script>
+
+<!--====== Slick js ======-->
+<script src="/Blog/static/userSide/js/slick.min.js"></script>
+
+<!--====== Isotope js ======-->
+<script src="/Blog/static/userSide/js/isotope.pkgd.min.js"></script>
+
+<!--====== image Loaded js ======-->
+<script src="/Blog/static/userSide/js/imagesloaded.pkgd.min.js"></script>
+
+<!--====== owl carousel js ======-->
+<script src="/Blog/static/userSide/js/owl.carousel.min.js"></script>
+
+<!--====== nice select js ======-->
+<script src="/Blog/static/userSide/js/jquery.nice-select.min.js"></script>
+
+<!--====== wow js ======-->
+<script src="/Blog/static/userSide/js/wow.min.js"></script>
+
+<!--====== counterup js ======-->
+<script src="/Blog/static/userSide/js/jquery.counterup.min.js"></script>
+
+<!--====== waypoints js ======-->
+<script src="/Blog/static/userSide/js/waypoints.min.js"></script>
+
+<!--====== Magnific Popup js ======-->
+<script src="/Blog/static/userSide/js/jquery.magnific-popup.min.js"></script>
+
+<!--====== Ajax Contact js ======-->
+<script src="/Blog/static/userSide/js/ajax-contact.js"></script>
+
+<!--====== Main js ======-->
+<script src="/Blog/static/userSide/js/main.js"></script>
+<script src="/Blog/static/userSide/js/axios.min.js"></script>
+<script src="/Blog/static/userSide/js/vue.js"></script>
+<script src="/Blog/static/userSide/js/yss/usercenter.js"></script>
+<script>
+    NProgress.start();
+</script>
+<script type="text/javascript">
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex> slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 3000); // 滚动时间
+    }
+</script>
+
+<script type="text/javascript">
+    $(function(){
+        $('.ydc-tabPanel ul li').click(function(){
+            $(this).addClass('hit').siblings().removeClass('hit');
+            $('.ydc-panes>div:eq('+$(this).index()+')').show().siblings().hide();
+        })
+    })
+</script>
+</body>
+</html>

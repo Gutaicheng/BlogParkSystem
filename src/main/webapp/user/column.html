@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+	<meta name="author" content="www.lzqcode.com" />
+    <title>文章阅读</title>
+    <link rel="stylesheet" href="/Blog/static/userSide/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Blog/static/userSide/layui/css/layui.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/master.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/gloable.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/nprogress.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/blog.css" />
+	<!-- 隔壁的css -->
+	<!--====== Favicon Icon ======-->
+	<link rel="shortcut icon" href="/Blog/static/userSide/image/favicon.ico" type="image/png">
+
+	<!--====== animate css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/animate.min.css">
+	
+	<!--====== Bootstrap css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/bootstrap.min.css">
+	
+	<!--====== Fontawesome css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/all.css">
+	
+	<!--====== Magnific Popup css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/magnific-popup.css">
+	
+	<!--====== Slick css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/owl.carousel.min.css">
+	
+	<!--====== nice select css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/nice-select.css">
+	
+	<!--====== Slick css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/slick.css">
+	
+	<!--====== Default css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/default.css">
+	
+	<!--====== Style css ======-->
+	<link rel="stylesheet" href="/Blog/static/userSide/css/style.css">
+	
+</head>
+<body>
+    <div class="header">
+    </div>
+    <header class="gird-header">
+        <div class="header-fixed">
+            <div class="header-inner">
+                <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
+                <nav class="nav" id="nav">
+                    <ul>
+                        <li><a href="/Blog">首页</a></li>
+                        <li><a href="/Blog/homepage">博客</a></li>
+                        <li><a href="/Blog/download">资源</a></li>
+                        <li><a href="diary.html">日记</a></li>
+                        <li><a href="link.html">友链</a></li>
+                        <li><a href="/Blog/write">撰写</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="blog-user">
+                    <i class="fa fa-qq"></i>
+                </a>
+                <a class="phone-menu">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+	<!-- 复制隔壁的html -->
+	<section class="blog-standard-area gray-bg pt-80 pb-120">
+        <div class="container" id="app">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="blog-standard-2">
+                        <div class="single-blog-standard  mt-40">
+                            <div class="blog-dteails-content bg-white">
+                                <div class="blog-details-releted-post mt-45">
+                                    <h4 class="title">专栏：</h4>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12" v-for="(article) in articles">
+                                            <div class="blog-details-releted-item mt-30">
+                                                <div class="releted-thumb">
+                                                    <img :src="article.cover" alt="" >
+                                                </div>
+                                                <div class="releted-content">
+                                                    <a :href="'/Blog/' + author.username + '/articles/' + article.aid"><h4 class="title">{{article.title}}</h4></a>
+                                                    <p></p>
+                                                    <span><i class="fal fa-calendar-alt"></i> {{article.data}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="blog-sidebar ml-10">
+                        <div class="blog-side-about white-bg mt-40">
+                            <div class="about-title">
+                                <h4 class="title">关于作者</h4>
+                            </div>
+                            <div class="blog-about-content text-center">
+                                <a :href="'/Blog/' + author.username">
+                                    <img :src="'/Blog/'+author.headshot" alt="girl">
+                                </a>
+                                <h4 class="title">{{author.username}}</h4>
+                                <p>{{author.introduction}}</p>
+                                <ul>
+                                    <li><a href="#">粉丝</a></li>
+                                    <li><a href="#">获赞</a></li>
+                                    <li><a href="#">评论</i></a></li>
+                                </ul>
+								<ul>
+								    <li><a href="#">1</a></li>
+								    <li><a href="#">10</a></li>
+								    <li><a href="#">100</i></a></li>
+								</ul>
+								<ul>
+								    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+								    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+								    <li><a href="#"><i class="fab fa-behance"></i></a></li>
+								    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+								    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+								</ul>
+                            </div>
+                        </div>
+                        <div class="blog-side-about white-bg mt-40">
+                            <div class="about-title">
+                                <h4 class="title">该页搜索</h4>
+                            </div>
+                            <div class="blog-Search-content text-center">
+                                <form action="#">
+                                    <div class="input-box">
+                                        <input type="text" placeholder="输入要搜索的关键词/Blog.">
+                                        <button type="button"><i class="far fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="blog-side-about white-bg mt-40">
+                            <div class="about-title">
+                                <h4 class="title">分类专栏</h4>
+                            </div>
+                            <div class="blog-categories-content mt-35">
+                                <ul>
+                                    <li><a :href="'/Blog/' + author.username + '/column/' + column.cid" v-for="(column) in columns">{{column.cname}} <span>{{column.amount}}</span></a></li>
+<!--                                    <li><a href="#">Consultant <span>30</span></a></li>-->
+<!--                                    <li><a href="#">Creative <span>71</span></a></li>-->
+<!--                                    <li><a href="#">UI/UX <span>56</span></a></li>-->
+<!--                                    <li><a href="#">Technology <span>60</span></a></li>-->
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="blog-side-about white-bg mt-40">
+                            <div class="about-title">
+                                <h4 class="title">Never Miss News</h4>
+                            </div>
+                            <div class="blog-social-content mt-35 text-center">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="blog-side-about white-bg mt-40">
+                            <div class="about-title">
+                                <h4 class="title">Popular Tags</h4>
+                            </div>
+                            <div class="blog-tags-content mt-25 text-center">
+                                <ul>
+                                    <li><a href="#">Popular</a></li>
+                                    <li><a href="#">design</a></li>
+                                    <li><a href="#">ux</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">usability</a></li>
+                                    <li><a href="#">develop</a></li>
+                                    <li><a href="#">icon</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">business</a></li>
+                                    <li><a href="#">consult</a></li>
+                                    <li><a href="#">kit</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">keyboard</a></li>
+                                    <li><a href="#">mouse</a></li>
+                                    <li><a href="#">tech</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="banner-add mt-40">
+                            <img src="/Blog/static/userSide/image/sidebar-add.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>	
+
+    
+    <footer class="grid-footer">
+        <div class="footer-fixed">
+            <div class="copyright">
+                <div class="info">
+                    <div class="contact">
+                        <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                        <a href="#" class="qq" target="_blank" ><i class="fa fa-qq"></i></a>
+                        <a href="#" class="email" target="_blank" ><i class="fa fa-envelope"></i></a>
+                        <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                    </div>
+                    <p class="mt05">
+                       Copyright &copy; 2019-2020 ZQ博客 All Rights Reserved V.3.1.3 Power by ZQ博客
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/Blog/static/userSide/layui/layui.js"></script>
+    <script src="/Blog/static/userSide/js/yss/gloable.js"></script>
+    <script src="/Blog/static/userSide/js/plugins/nprogress.js"></script>
+    <script src="/Blog/static/userSide/js/pagecomment.js"></script>
+	
+	<!-- 复制隔壁的js -->
+	<!--====== jquery js ======-->
+	<script src="/Blog/static/userSide/js/vendor/modernizr-3.6.0.min.js"></script>
+	<script src="/Blog/static/userSide/js/vendor/jquery-1.12.4.min.js"></script>
+	
+	<!--====== Bootstrap js ======-->
+	<script src="/Blog/static/userSide/js/bootstrap.min.js"></script>
+	<script src="/Blog/static/userSide/js/popper.min.js"></script>
+	
+	<!--====== Slick js ======-->
+	<script src="/Blog/static/userSide/js/slick.min.js"></script>
+	
+	<!--====== Isotope js ======-->
+	<script src="/Blog/static/userSide/js/isotope.pkgd.min.js"></script>
+	
+	<!--====== image Loaded js ======-->
+	<script src="/Blog/static/userSide/js/imagesloaded.pkgd.min.js"></script>
+	
+	<!--====== owl carousel js ======-->
+	<script src="/Blog/static/userSide/js/owl.carousel.min.js"></script>
+	
+	<!--====== nice select js ======-->
+	<script src="/Blog/static/userSide/js/jquery.nice-select.min.js"></script>
+	
+	<!--====== wow js ======-->
+	<script src="/Blog/static/userSide/js/wow.min.js"></script>
+	
+	<!--====== counterup js ======-->
+	<script src="/Blog/static/userSide/js/jquery.counterup.min.js"></script>
+	
+	<!--====== waypoints js ======-->
+	<script src="/Blog/static/userSide/js/waypoints.min.js"></script>
+	
+	<!--====== Magnific Popup js ======-->
+	<script src="/Blog/static/userSide/js/jquery.magnific-popup.min.js"></script>
+	
+	<!--====== Ajax Contact js ======-->
+	<script src="/Blog/static/userSide/js/ajax-contact.js"></script>
+	
+	<!--====== Main js ======-->
+	<script src="/Blog/static/userSide/js/main.js"></script>
+    <script src="/Blog/static/userSide/js/axios.min.js"></script>
+    <script src="/Blog/static/userSide/js/vue.js"></script>
+    <script src="/Blog/static/userSide/js/yss/column.js"></script>
+    <script>
+        NProgress.start();
+    </script>
+</body>
+</html>

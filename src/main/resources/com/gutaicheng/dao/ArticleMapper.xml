@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="com.gutaicheng.dao.ArticleMapper">
+    <resultMap id="articleMap" type="article">
+        <id column="aid" property="aid"/>
+        <result column="title" property="title"/>
+        <result column="text" property="text"/>
+        <result column="data" property="data"/>
+        <result column="views" property="views"/>
+        <association property="belongsUser" javaType="user">
+            <id column="uid" property="uid"/>
+            <result column="username" property="username"/>
+            <result column="introduction" property="introduction"/>
+        </association>
+    </resultMap>
+
+    <insert id="addArticle" useGeneratedKeys="true" keyProperty="aid">
+        insert into article (uid, title, content, text, data, state, cover)
+        VALUES (#{uid},#{title},#{content},#{text},#{data},#{state}, #{cover})
+    </insert>
+
+    <update id="viewsAddOne">
+        update article set views = views + 1 where aid = #{aid}
+    </update>
+
+    <update id="updateArticleState">
+        update article set state = #{state} where aid = #{aid}
+    </update>
+
+    <update id="updateArticleByAid">
+        update article set title = #{title}, content = #{content}, text = #{text}, state = #{state}, data = #{data}, cover = #{cover}
+        where aid = #{aid}
+    </update>
+
+    <delete id="deleteArticleByAid">
+        delete from article where aid = #{aid}
+    </delete>
+
+    <select id="selectMostViewArticle" resultMap="articleMap">
+        select aid, title, text, data, max(views) as views, u.uid, username, introduction
+        from article a, user u
+        where a.uid = u.uid
+    </select>
+
+    <select id="selectArticleByAid" resultType="com.gutaicheng.model.Article">
+        select * from article where aid = #{aid}
+    </select>
+
+    <select id="selectTopTenArticles" resultType="com.gutaicheng.model.ArticleAndAuthor">
+#         select * from article,user where user.uid = article.uid order by views desc limit 0,10;
+        select aid,article.uid, title, text, data, state, views, comments, cover, username
+        from article, user
+        where user.uid = article.uid and state = 1 order by views desc limit 0,10;
+    </select>
+    <select id="selectNewTenArticles" resultType="com.gutaicheng.model.ArticleAndAuthor">
+        select aid,article.uid, title, text, data, state, views, comments, cover, username
+        from article, user
+        where user.uid = article.uid and state = 1 ORDER BY `data` DESC limit 0,10;
+#         SELECT * FROM article ORDER BY `data` DESC limit 0,10;
+    </select>
+
+    <select id="selectUserTopFiveArticlesByUid" resultType="com.gutaicheng.model.Article">
+        select * from article
+        where uid = #{uid} and aid != #{aid} and state = 1 order by views desc limit 0, 5;
+    </select>
+    <select id="selectAllArticlesByUid" resultType="com.gutaicheng.model.Article">
+        select * from article where uid = #{uid} order by data desc
+    </select>
+    <select id="selectAllArticles" resultType="com.gutaicheng.model.ArticleAndAuthor">
+        select aid,article.uid, title, text, data, state, views, comments, cover, username
+        from article, user
+        where user.uid = article.uid;
+    </select>
+    <select id="selectArticlesPending" resultType="com.gutaicheng.model.ArticleAndAuthor">
+        select aid,article.uid, title, text, data, state, views, comments, cover, username
+        from article, user
+        where user.uid = article.uid and state != 1;
+    </select>
+
+</mapper>

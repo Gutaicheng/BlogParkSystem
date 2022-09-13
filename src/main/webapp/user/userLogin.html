@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 引入css、js -->
+    <link rel="stylesheet" href="/Blog/static/userSide/css/login.css">
+</head>
+<body>
+    <!-- 搭建结构 -->
+    <div class="container switch" id="app">
+        <!-- 登录页面 -->
+        <div class="container-form container-signup">
+            <div class="form">
+                <h2 class="form-title">登录</h2>
+                <input type="text" placeholder="UserName" class="input" v-model="user.username">
+                <input type="password" placeholder="Password" class="input" v-model="user.password">
+                <a href="javascript:void(0);">forgot your password?</a>
+                <button class="submit" @click="userLogin">sign in</button>
+            </div>
+        </div>
+
+        <!-- 注册页面 -->
+        <div class="container-form container-signin">
+            <div  class="form">
+                <h2 class="form-title">注册</h2>
+                <input type="text" placeholder="User" class="input">
+                <input type="email" placeholder="Email" class="input">
+                <input type="password" placeholder="Password" class="input">
+                <a href="javascript:void(0);">forgot your password?</a>
+                <button class="submit">sign up</button>
+            </div>
+        </div>
+        <!-- 覆盖层 -->
+        <div class="container-overlay">
+            <div class="overlay">
+                <div class="overlay-slide overlay-left">
+                    <button class="submit" id="goSignIn">sign up</button>
+                </div>
+                <div class="overlay-slide overlay-right">
+                    <button class="submit" id="goSignUp">sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Blog/static/userSide/js/axios.min.js"></script>
+    <script src="/Blog/static/userSide/js/vue.js"></script>
+    <script src="/Blog/static/userSide/js/login.js"></script>
+</body>
+</html>
+<!-- 结构搭建完成 -->

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.lzqcode.com" />
+    <meta name="robots" content="all" />
+    <title>撰写</title>
+    <link rel="stylesheet" href="/Blog/static/userSide/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Blog/static/userSide/layui/css/layui.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/master.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/gloable.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/nprogress.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/message.css" />
+
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/entypo.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/css.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/bootstrap.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/neon-core.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/neon-theme.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/neon-forms.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/custom.css">
+    <script src="/Blog/static/adminSide/js/jquery-1.11.0.min.js"></script>
+    <style>
+        .toolbar {
+            border: 1px solid #ccc;
+            background: white;
+        }
+
+        .text {
+            border: 1px solid #ccc;
+            height: 400px;
+            background: white;
+        }
+        .ms-container .ms-list {
+            width: 135px;
+            height: 205px;
+        }
+
+        .post-save-changes {
+            float: right;
+        }
+        @media screen and (max-width: 789px)
+        {
+            .post-save-changes {
+                float: none;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="page-body" data-url="http://neon.dev">
+    <div class="header">
+    </div>
+    <header class="gird-header">
+        <div class="header-fixed">
+            <div class="header-inner">
+                <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
+                <nav class="nav" id="nav">
+                    <ul>
+                        <li><a href="/Blog">首页</a></li>
+                        <li><a href="/Blog/homepage">博客</a></li>
+                        <li><a href="/Blog/download">资源</a></li>
+                        <li><a href="diary.html">日记</a></li>
+                        <li><a href="link.html">友链</a></li>
+                        <li><a href="/Blog/write">撰写</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="blog-user">
+                    <i class="fa fa-qq"></i>
+                </a>
+                <a class="phone-menu">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+	
+    <div class="doc-container" id="doc-container">
+        <div class="container-fixed">
+            <div class="container-inner">
+                <section class="msg-remark">
+                    <h1>请写下你的想法与经验</h1>
+                    <p>
+                        沟通交流，拉近你我！
+                    </p>
+                </section><br />
+
+<!--                <input id="title" type="text" placeholder="输入文章标题" v-model="newArticle.title" style="color:black;width:100%; height:50px; font-size:20px; font-weight:bold" ><br /><br />-->
+                <div class="row">
+                    <div class="col-sm-2 post-save-changes">
+                        <button type="button" class="btn btn-green btn-lg btn-block btn-icon">
+                            Publish
+                            <i class="entypo-check"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-sm-10">
+                        <input id="title" type="text" class="form-control input-lg" name="post_title" placeholder="Post title">
+                    </div>
+                </div><br>
+
+                <div id="div1" class="toolbar"></div>
+                <div id="div2" class="text"></div>
+
+                <div class="row" id="app">
+                    <div>
+                        <button id="publish" @click="getArticleInfo(2)">保存修改</button>
+                        <button id="save" @click="getArticleInfo(2)">保存至草稿</button>
+                        <button @click="testqita">测试数据</button>
+                    </div>
+
+                    <!-- Metabox :: Publish Settings -->
+
+                    <!-- Metabox :: Featured Image -->
+                    <div class="col-sm-4">
+
+                        <div class="panel panel-primary" data-collapsed="0">
+
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    设置封面
+                                </div>
+
+                                <div class="panel-options">
+                                    <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail" style="max-width: 310px; height: 160px;" data-trigger="fileinput">
+                                        <img src="/Blog/static/adminSide/picture/320x160.jpg" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 320px; max-height: 160px"></div>
+                                    <div>
+							<span class="btn btn-white btn-file">
+								<span class="fileinput-new">选择图片</span>
+								<span class="fileinput-exists">修改</span>
+								<input id="articleCover" type="file" name="myFile">
+							</span>
+                                        <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Metabox :: Categories -->
+                    <div class="col-sm-4">
+
+                        <div class="panel panel-primary" data-collapsed="0">
+
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    选择专栏
+                                </div>
+
+                                <div class="panel-options">
+                                    <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <select id="column" name="test" class="select2" data-allow-clear="true" data-placeholder="搜索你的专栏">
+                                    <option></option>
+                                    <optgroup label="你的专栏">
+                                        <option v-for="(column) in columns" :value="column.cid">{{column.cname}}</option>
+                                    </optgroup>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Metabox :: Tags -->
+                    <div class="col-sm-4">
+                        <div class="panel panel-primary" data-collapsed="0">
+
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    选择标签
+                                </div>
+
+                                <div class="panel-options">
+                                    <a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <p>Add Post Tags</p>
+<!--                                <input type="text" value="weekend,friday,happy" class="form-control tagsinput">-->
+                                <select id="tag" name="test" class="select2" multiple="" onchange="changeTags()">
+                                    <option v-for="(tag) in tags" :value="tag.tid">{{tag.tagname}}</option>
+<!--                                    <option value="2">Boston</option>-->
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- 页脚 -->
+    <footer class="grid-footer">
+        <div class="footer-fixed">
+            <div class="copyright">
+                <div class="info">
+                    <div class="contact">
+                        <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                        <a href="#" class="qq" target="_blank" ><i class="fa fa-qq"></i></a>
+                        <a href="#" class="email" target="_blank" ><i class="fa fa-envelope"></i></a>
+                        <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                    </div>
+                    <p class="mt05">
+                        Copyright &copy; 2019-2020 ZQ博客 All Rights Reserved V.3.1.3 Power by ZQ博客
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/bootstrap-wysihtml5.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/jquery.selectBoxIt.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/select2-bootstrap.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/select2.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/jquery.selectBoxIt.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/_all.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/_all1.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/_all2.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/futurico.css">
+    <link rel="stylesheet" href="/Blog/static/adminSide/css/polaris.css">
+    <!-- Bottom Scripts -->
+    <script src="/Blog/static/adminSide/js/main-gsap.js"></script>
+    <script src="/Blog/static/adminSide/js/jquery-ui-1.10.3.minimal.min.js"></script>
+    <script src="/Blog/static/adminSide/js/bootstrap.js"></script>
+    <script src="/Blog/static/adminSide/js/joinable.js"></script>
+    <script src="/Blog/static/adminSide/js/resizeable.js"></script>
+    <script src="/Blog/static/adminSide/js/neon-api.js"></script>
+
+    <script src="/Blog/static/adminSide/js/jquery.dataTables.min.js"></script>
+    <script src="/Blog/static/adminSide/js/TableTools.min.js"></script>
+    <script src="/Blog/static/adminSide/js/dataTables.bootstrap.js"></script>
+    <script src="/Blog/static/adminSide/js/jquery.dataTables.columnFilter.js"></script>
+    <script src="/Blog/static/adminSide/js/lodash.min.js"></script>
+    <script src="/Blog/static/adminSide/js/datatables.responsive.js"></script>
+    <script src="/Blog/static/adminSide/js/select2.min.js"></script>
+
+    <script src="/Blog/static/adminSide/js/wysihtml5-0.4.0pre.min.js"></script>
+    <script src="/Blog/static/adminSide/js/bootstrap-wysihtml5.js"></script>
+    <script src="/Blog/static/adminSide/js/jquery.multi-select.js"></script>
+    <script src="/Blog/static/adminSide/js/fileinput.js"></script>
+    <script src="/Blog/static/adminSide/js/bootstrap-datepicker.js"></script>
+    <script src="/Blog/static/adminSide/js/jquery.selectBoxIt.min.js"></script>
+    <script src="/Blog/static/adminSide/js/bootstrap-tagsinput.min.js"></script>
+    <script src="/Blog/static/adminSide/js/neon-chat.js"></script>
+    <script src="/Blog/static/adminSide/js/neon-custom.js"></script>
+    <script src="/Blog/static/adminSide/js/neon-demo.js"></script>
+
+
+    <script src="/Blog/static/userSide/layui/layui.js"></script>
+    <script src="/Blog/static/userSide/js/yss/gloable.js"></script>
+    <script src="/Blog/static/userSide/js/plugins/nprogress.js"></script>
+    <script>NProgress.start();</script>
+    <script src="/Blog/static/userSide/js/pagemessage.js"></script>
+    <script>NProgress.start();</script>
+	<!-- 富文本js -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/wangEditor/3.1.1/wangEditor.min.js"></script>
+<!--	<script type="text/javascript" src="/Blog/static/userSide/js/wangEditor.min.js"></script>-->
+    <script src="/Blog/static/userSide/js/axios.min.js"></script>
+    <script src="/Blog/static/userSide/js/vue.js"></script>
+    <script src="/Blog/static/userSide/js/update-article.js"></script>
+
+</body>
+</html>

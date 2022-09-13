@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="com.gutaicheng.dao.ArticleTagMapper">
+    <insert id="addArticleTags">
+        insert into articletag values (#{aid}, #{tid})
+    </insert>
+    <insert id="addTag">
+        insert into tag(tagname) values (#{tagname})
+    </insert>
+    <insert id="insertCategory" parameterType="com.gutaicheng.model.Tag">
+        insert into tag(tid, tagname) values (#{tid}, #{tagname})
+    </insert>
+    <update id="updateTag">
+        update tag set tagname = #{tagname} where tid = #{tid}
+    </update>
+    <delete id="deleteTagByTid">
+        delete from tag where tid = #{tid}
+    </delete>
+    <delete id="deleteArticleTagByAid">
+        delete from articletag where aid = #{aid}
+    </delete>
+
+    <select id="selectTagByAid" resultType="com.gutaicheng.model.ArticleTag">
+        select aid, articletag.tid, tagname
+        from articletag, tag
+        where aid = #{aid} and articletag.tid = tag.tid
+    </select>
+    <select id="selectAllTag" resultType="com.gutaicheng.model.ArticleTag">
+        select aid, articletag.tid, tagname
+        from articletag, tag
+        where articletag.tid = tag.tid
+    </select>
+    <select id="getAllTags" resultType="com.gutaicheng.model.Tag">
+        select * from tag
+    </select>
+</mapper>

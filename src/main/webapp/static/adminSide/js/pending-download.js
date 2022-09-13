@@ -1,0 +1,72 @@
+new Vue({
+    el: "#app",
+    data() {
+        return {
+            downloads:{},
+            pending:{}
+        }
+    },
+    mounted() {
+        this.getDownloads();
+    },
+    methods: {
+        getDownloads(){
+            var _this = this;
+            axios({
+                method: "get",
+                url: "http://localhost:8080/Blog/selectAllDownloadsPending"
+            }).then(function (resp) {
+                console.log(resp);
+                _this.downloads = resp.data;
+            });
+        },
+        updateDownloadState(download, state){
+            var _this = this;
+            axios({
+                method: "get",
+                url: "http://localhost:8080/Blog/updateDownloadState?did=" + download.did + "&state=" + state
+            }).then(function (resp) {
+                console.log(resp);
+                _this.getDownloads();
+                _this.pending.uid = download.uid;
+                _this.pending.ptitle = download.dname;
+                _this.pending.type = 2;
+                _this.pending.paid = 1;
+                if (state===1){
+                    _this.pending.presult = 1;
+                }else _this.pending.presult = 2;
+                axios({
+                    method: "post",
+                    url: "http://localhost:8080/Blog/addPending",
+                    data: _this.pending
+                }).then(function (resp) {
+                    console.log(resp);
+                });
+            });
+        }
+    }
+})
+
+function showTime() {
+    var now = new Date();
+    var year = now.getFullYear(); //得到年份
+    var month = now.getMonth() + 1;//得到月份
+    var date = now.getDate();//得到日期
+    var time = year + "-" + month + "-" + date;
+    return time;
+}
+
+
+
+jQuery(document).ready(function($)
+{
+    var table = $("#table-1").dataTable({
+        "sPaginationType": "bootstrap",
+        "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "bStateSave": true
+    });
+
+    table.columnFilter({
+        "sPlaceHolder" : "head:after"
+    });
+});

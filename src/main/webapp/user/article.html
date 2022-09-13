@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.lzqcode.com" />
+    <meta name="robots" content="all" />
+    <title>我的博客</title>
+    <link rel="stylesheet" href="/Blog/static/userSide/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Blog/static/userSide/layui/css/layui.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/master.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/gloable.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/nprogress.css" />
+    <link rel="stylesheet" href="/Blog/static/userSide/css/blog.css" />
+	<style>
+		.line-limit-length {
+			max-height: 200px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: normal; //文本不换行，这样超出一行的部分被截取，显示...
+		}
+	</style>
+</head>
+<body>
+    <div class="header">
+    </div>
+    <header class="gird-header">
+        <div class="header-fixed">
+            <div class="header-inner">
+                <a href="javascript:void(0)" class="header-logo" id="logo">Mr.liu</a>
+                <nav class="nav" id="nav">
+                    <ul>
+                        <li><a href="/Blog">首页</a></li>
+                        <li><a href="/Blog/homepage">博客</a></li>
+                        <li><a href="/Blog/download">资源</a></li>
+						<li><a href="diary.html">日记</a></li>
+                        <li><a href="link.html">友链</a></li>
+						<li><a href="/Blog/write">撰写</a></li>
+                    </ul>
+                </nav>
+<!--				<a href="userLogin.html" class="blog-user">-->
+<!--					<i class="fa fa-qq">????</i>-->
+<!--				</a>-->
+                <a href="admin/loginPage" class="blog-user">
+                    <i class="fa fa-qq"></i>
+                </a>
+                <a class="phone-menu">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="doc-container" id="doc-container">
+        <div class="container-fixed" id="app">
+		    <div class="col-content">
+		        <div class="inner">
+		            <article class="article-list bloglist" id="LAY_bloglist" >
+						<section class="article-item zoomIn article">
+							<a href="#" @click="getTopTenArticles">
+								<i>最热</i>
+							</a>
+							<i>&nbsp;/&nbsp;</i>
+							<a href="#" @click="getNewTenArticles">
+								<i>最新</i>
+							</a>
+							<i>&nbsp;/&nbsp;</i>
+							<a href="#" id="recommendation">
+								<i>推荐</i>
+							</a>
+						</section>
+						<div v-for="(article) in topTenArticles">
+							<section class="article-item zoomIn article">
+								<div class="fc-flag">置顶</div>
+								<h5 class="title">
+									<span class="fc-blue">【原创】</span>
+<!--									<div v-for="(author) in authors">-->
+<!--										<a v-if="article.uid==author.uid" :href="'/Blog/' + author.username + '/articles/' + article.aid">{{article.title}}</a>-->
+<!--									</div>-->
+									<a :href="'/Blog/' + article.username + '/articles/' + article.aid">{{article.title}}</a>
+								</h5>
+								<div class="time">
+<!--									<span class="day">1</span>-->
+<!--									<span class="month fs-18">7<span class="fs-14">月</span></span>-->
+<!--									<span class="year fs-18 ml10">2020</span>-->
+									<span class="year fs-18 ml10">{{article.data}}</span>
+								</div>
+								<div class="content">
+									<a href="user/read.html" class="cover img-light">
+										<img :src="article.cover">
+									</a>
+									<p class="line-limit-length">{{article.text}}</p>
+
+								</div>
+								<div class="read-more">
+									<a href="user/read.html" class="fc-black f-fwb">继续阅读</a>
+								</div>
+								<aside class="f-oh footer">
+									<div class="f-fl tags" v-for="(tag) in tags">
+										<a class="tag" v-if="tag.aid == article.aid">
+											<span class="fa fa-tags fs-16"></span>
+											{{tag.tagname}}
+										</a>
+									</div>
+									<div class="f-fr">
+										<span class="read">
+											<i class="fa fa-eye fs-16"></i>
+											<i class="num">{{article.views}}</i>
+										</span>
+										<span class="ml20">
+											<i class="fa fa-comments fs-16"></i>
+											<a href="javascript:void(0)" class="num fc-grey">1</a>
+										</span>
+									</div>
+								</aside>
+							</section>
+						</div>
+		            </article>
+		        </div>
+		    </div>
+		    <div class="col-other">
+		        <div class="inner">
+					<div class="other-item" id="categoryandsearch">
+			    		<div class="search">
+					        <label class="search-wrap">
+					            <input type="text" id="searchtxt" placeholder="输入关键字搜索" />
+					            <span class="search-icon">
+					                <i class="fa fa-search"></i>
+					            </span>
+					        </label>
+			        		<ul class="search-result"></ul>
+			    		</div>
+			    		<ul class="category mt20" id="category">
+				        	<li data-index="0" class="slider"></li>
+				        	<li data-index="1"><a href="/Blog/Article">全部文章</a></li>
+				            <li data-index="2"><a href="/Blog/Article/1/">Java</a></li>
+				            <li data-index="3"><a href="/Blog/Article/2/">前端</a></li>
+				            <li data-index="4"><a href="/Blog/Article/3/">Python</a></li>
+				            <li data-index="5"><a href="/Blog/Article/4/">PHP</a></li>
+				            <li data-index="6"><a href="/Blog/Article/5/">其它</a></li>
+			    		</ul>
+					</div>
+					<div class="other-item">
+						<h5 class="other-item-title">个人信息</h5>
+						<div class="inner" v-if="isLogged==0">
+							<a href="/Blog/userLogin">
+								<i>登录</i>
+							</a>
+						</div>
+						<div class="inner" v-else>
+							{{user.username}}<br>
+							{{user.tel}}<br>
+							{{user.email}}<br>
+							{{user.registeredTime}}<br>
+<!--							<a :href="'/Blog/'+user.username">-->
+<!--								<img :src="user.headshot" width="50" height="50">-->
+<!--							</a>-->
+							<a href="/Blog/personalCenter">
+								<img :src="user.headshot" width="50" height="50">
+							</a>
+							<a href="javascript:void(0);" @click="signOut">
+								<i>退出登录</i>
+							</a>
+						</div>
+
+					</div>
+					<!--右边悬浮 平板或手机设备显示-->
+					<div class="category-toggle"><i class="layui-icon">&#xe603;</i></div>
+					<div class="article-category">
+					    <div class="article-category-title">分类导航</div>
+					            <a href="/Blog/Article/1/">Java</a>
+					            <a href="/Blog/Article/2/">前端</a>
+					            <a href="/Blog/Article/3/">Python</a>
+					            <a href="/Blog/Article/4/">PHP</a>
+					            <a href="/Blog/Article/5/">其它</a>
+					    <div class="f-cb"></div>
+					</div>
+					<!--遮罩-->
+					<div class="blog-mask animated layui-hide"></div>
+					<div class="other-item">
+					    <h5 class="other-item-title">热门文章</h5>
+					    <div class="inner">
+					        <ul class="hot-list-article">
+					                <li> <a href="/Blog/Read/9">SpringBoot 入门爬虫项目实战</a></li>
+					                <li> <a href="/Blog/Read/12">SpringBoot 2.x 教你快速入门</a></li>
+					                <li> <a href="/Blog/Read/13">java学习路线</a></li>
+					                <li> <a href="/Blog/Read/4">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
+					                <li> <a href="/Blog/Read/7">SpringBoot 中如何使用SwaggerAPI接口文档？</a></li>
+					                <li> <a href="/Blog/Read/11">小白轻松入门Redis</a></li>
+					                <li> <a href="/Blog/Read/14">微信一键登录功能的实现</a></li>
+					                <li> <a href="/Blog/Read/8">NPOI导入导出Excel</a></li>
+					        </ul>
+					    </div>
+					</div>
+					<div class="other-item">
+					    <h5 class="other-item-title">置顶推荐</h5>
+					    <div class="inner">
+					        <ul class="hot-list-article">
+					                <li> <a href="/Blog/Read/16">java学习路线</a></li>
+					                <li> <a href="/Blog/Read/14">基于SpringBoot+JWT+Redis跨域单点登录的实现</a></li>
+					                <li> <a href="/Blog/Read/9">小白轻松入门Redis</a></li>
+					        </ul>
+					    </div>
+					</div>
+		        </div>
+		    </div>
+		</div>
+    </div>
+    <footer class="grid-footer">
+        <div class="footer-fixed">
+            <div class="copyright">
+                <div class="info">
+                    <div class="contact">
+                        <a href="javascript:void(0)" class="github" target="_blank"><i class="fa fa-github"></i></a>
+                        <a href="https://wpa.qq.com/msgrd?v=3&uin=930054439&site=qq&menu=yes" class="qq" target="_blank" title="930054439"><i class="fa fa-qq"></i></a>
+                        <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gbiysbG0tbWyuMHw8K-i7uw" class="email" target="_blank" title="930054439@qq.com"><i class="fa fa-envelope"></i></a>
+                        <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                    </div>
+                    <p class="mt05">
+                         Copyright &copy; 2019-2020 ZQ博客 All Rights Reserved V.3.1.3 Power by ZQ博客
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="/Blog/static/userSide/layui/layui.js"></script>
+    <script src="/Blog/static/userSide/js/yss/gloable.js"></script>
+    <script src="/Blog/static/userSide/js/plugins/nprogress.js"></script>
+    <script>NProgress.start();</script>
+	<script src="/Blog/static/userSide/js/axios.min.js"></script>
+	<script src="/Blog/static/userSide/js/vue.js"></script>
+ 	<script src="/Blog/static/userSide/js/yss/article.js"></script>
+    <script> 
+        window.onload = function () {
+            NProgress.done();
+        };
+    </script>
+</body>
+</html>

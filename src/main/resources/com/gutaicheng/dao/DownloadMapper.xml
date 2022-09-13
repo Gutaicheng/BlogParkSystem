@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="com.gutaicheng.dao.DownloadMapper">
+
+    <insert id="uploadDownload">
+        insert into download(dname, uid, loadtime, dmiaoshu, dfile, dformat)
+        VALUES (#{dname}, #{uid}, #{loadtime}, #{dmiaoshu}, #{dfile}, #{dformat})
+    </insert>
+    <update id="updateDownloadState">
+        update download set state = #{state} where did = #{did}
+    </update>
+    <delete id="deleteDownloadByDid">
+        delete from download where did = #{did}
+    </delete>
+    <select id="selectAllDownloads" resultType="com.gutaicheng.model.Download">
+        select did, dname, user.username as dusername, loadtime, dmiaoshu, dformat, dfile,state, download.uid
+        from download, user
+        where download.uid = user.uid and state != 1
+    </select>
+    <select id="topTenDownload" resultType="com.gutaicheng.model.Download">
+        select did, dname, user.username as dusername, loadtime, dmiaoshu, dformat, dfile,state, download.uid, downloadtime
+        from download, user
+        where download.uid = user.uid and state = 1 order by downloadtime desc limit 0,10
+    </select>
+    <select id="topNewDownload" resultType="com.gutaicheng.model.Download">
+        select did, dname, user.username as dusername, loadtime, dmiaoshu, dformat, dfile,state, download.uid, downloadtime
+        from download, user
+        where download.uid = user.uid and state = 1 order by loadtime desc limit 0,10
+    </select>
+    <select id="selectDownloadByUid" resultType="com.gutaicheng.model.Download">
+        select did, dname, user.username as dusername, loadtime, dmiaoshu, dformat, dfile,state, download.uid, downloadtime
+        from download, user
+        where download.uid = user.uid and user.uid = #{uid} order by loadtime desc
+    </select>
+
+</mapper>

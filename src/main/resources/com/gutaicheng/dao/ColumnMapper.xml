@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace:名称空间
+-->
+
+<mapper namespace="com.gutaicheng.dao.ColumnMapper">
+    <insert id="addToColumnByAid">
+        insert into `column_article` values (#{cid}, #{aid}, #{uid})
+    </insert>
+    <insert id="addNewColumn">
+        insert into `column` (uid, cname) VALUES (#{uid}, #{cname})
+    </insert>
+
+    <update id="updateColumnNameByCid">
+        update `column` set cname = #{cname} where cid = #{cid}
+    </update>
+    <update id="updateToColumnByAid">
+        update `column_article` set cid = #{cid} where aid = #{aid}
+    </update>
+
+    <delete id="deleteColumnByCid">
+        delete from `column` where cid = #{cid}
+    </delete>
+
+    <select id="selectColumnByUid" resultType="com.gutaicheng.model.Column">
+        select * from `column` where uid = #{uid};
+    </select>
+    <select id="selectArticleAmountByCid" resultType="java.lang.Integer">
+        SELECT count(*) FROM `column_article` WHERE cid = #{cid}
+    </select>
+    <select id="selectAllColumns" resultType="com.gutaicheng.model.Column">
+        select * from `column`
+    </select>
+    <select id="selectArticleByCid" resultType="com.gutaicheng.model.ArticleAndAuthor">
+        select article.aid,article.uid, title, text, data, state, views, comments, cover, username
+        from article, user , column_article
+        where user.uid = article.uid and cid = #{cid} and column_article.aid = article.aid;
+    </select>
+</mapper>
