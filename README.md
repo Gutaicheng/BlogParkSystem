@@ -11,4 +11,4 @@
 管理员审核文章/评论/资源、管理员对用户信息，文章，标签进
 行管理
 
-有疑问可以前往博客留言[GuTaicheng's Blog](https://blog.gutaicheng.top/)
+有疑问可以前往博客留言
